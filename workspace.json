@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "projects": {
+    "app-one": "apps/app-one",
+    "app-one-e2e": "apps/app-one-e2e",
+    "app-two": "apps/app-two",
+    "app-two-e2e": "apps/app-two-e2e",
+    "shell": "apps/shell",
+    "shell-e2e": "apps/shell-e2e"
+  }
+}

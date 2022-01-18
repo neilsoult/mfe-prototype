@@ -1,0 +1,102 @@
+{
+  "projectType": "application",
+  "root": "apps/app-two",
+  "sourceRoot": "apps/app-two/src",
+  "prefix": "mfe-prototype",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "baseHref": "/two/",
+        "outputPath": "dist/apps/app-two",
+        "index": "apps/app-two/src/index.html",
+        "main": "apps/app-two/src/main.ts",
+        "polyfills": "apps/app-two/src/polyfills.ts",
+        "tsConfig": "apps/app-two/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": ["apps/app-two/src/favicon.ico", "apps/app-two/src/assets"],
+        "styles": ["apps/app-two/src/styles.less"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/app-two/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/app-two/src/environments/environment.ts",
+              "with": "apps/app-two/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/app-two/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "app-two:build:production"
+        },
+        "development": {
+          "browserTarget": "app-two:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "app-two:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/app-two/src/**/*.ts",
+          "apps/app-two/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/app-two"],
+      "options": {
+        "jestConfig": "apps/app-two/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
