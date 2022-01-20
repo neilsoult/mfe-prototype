@@ -11,6 +11,7 @@
         "baseHref": "/two/",
         "outputPath": "dist/apps/app-two-pug",
         "index": "apps/app-two-pug/src/index.html",
+        "indexTransform": "tools/pug/index-compile.ts",
         "main": "apps/app-two-pug/src/main.ts",
         "polyfills": "apps/app-two-pug/src/polyfills.ts",
         "tsConfig": "apps/app-two-pug/tsconfig.app.json",
@@ -22,7 +23,7 @@
         "styles": ["apps/app-two-pug/src/styles.less"],
         "scripts": [],
         "customWebpackConfig": {
-          "path": "apps/app-two-pug/webpack.config.js"
+          "path": "apps/app-two-pug/webpack.config"
         }
       },
       "configurations": {
