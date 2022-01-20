@@ -23,7 +23,7 @@
         "styles": ["apps/app-two-pug/src/styles.less"],
         "scripts": [],
         "customWebpackConfig": {
-          "path": "apps/app-two-pug/webpack.config"
+          "path": "apps/app-two-pug/webpack.config.js"
         }
       },
       "configurations": {
