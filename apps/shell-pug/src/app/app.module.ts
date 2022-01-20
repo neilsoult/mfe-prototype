@@ -11,12 +11,12 @@ import { AppComponent } from './app.component';
     RouterModule.forRoot(
       [
         {
-          path: 'app-one-pug',
+          path: 'one',
           loadChildren: () =>
             import('app-one-pug/Module').then((m) => m.CoreModule),
         },
         {
-          path: 'app-two-pug',
+          path: 'two',
           loadChildren: () =>
             import('app-two-pug/Module').then((m) => m.CoreModule),
         },

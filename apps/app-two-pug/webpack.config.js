@@ -28,20 +28,18 @@ sharedMappings.register(
 
 module.exports = (config) => {
 
-  config.output = { uniqueName: 'app-one-pug', publicPath: 'auto' };
-  config.optimization = { runtimeChunk: false };
-  config.experiments = { outputModule: true };
-  config.resolve = {
-    alias: {
-      ...sharedMappings.getAliases(),
-    }
-  };
+  config.output.uniqueName = 'app-two-pug';
+  config.output.publicPath = 'auto';
+  config.optimization.runtimeChunk = false;
+  config.experiments.outputModule = true;
+  config.resolve.alias = { ...sharedMappings.getAliases() };
   config.plugins = [
+    ...config.plugins,
     new ModuleFederationPlugin({
-      name: 'app-one-pug',
+      name: 'app-two-pug',
       filename: 'remoteEntry.js',
       exposes: {
-        './Module': './apps/app-one-pug/src/app/core/core.module.ts',
+        './Module': './apps/app-two-pug/src/app/core/core.module.ts',
       },
       shared: share({
         '@angular/core': {
@@ -80,8 +78,7 @@ module.exports = (config) => {
         type: 'module',
       },
     }),
-    sharedMappings.getPlugin(),
-    ...config.plugins,
+    sharedMappings.getPlugin()
   ];
 
   return require('../../tools/custom-webpack-config')(config);

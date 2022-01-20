@@ -28,15 +28,13 @@ sharedMappings.register(
 
 module.exports = (config) => {
 
-  config.output = { uniqueName: 'app-one-pug', publicPath: 'auto' };
-  config.optimization = { runtimeChunk: false };
-  config.experiments = { outputModule: true };
-  config.resolve = {
-    alias: {
-      ...sharedMappings.getAliases(),
-    }
-  };
+  config.output.uniqueName = 'app-one-pug';
+  config.output.publicPath = 'auto';
+  config.optimization.runtimeChunk = false;
+  config.experiments.outputModule = true;
+  config.resolve.alias = { ...sharedMappings.getAliases() };
   config.plugins = [
+    ...config.plugins,
     new ModuleFederationPlugin({
       name: 'app-one-pug',
       filename: 'remoteEntry.js',
@@ -80,9 +78,9 @@ module.exports = (config) => {
         type: 'module',
       },
     }),
-    sharedMappings.getPlugin(),
-    ...config.plugins,
+    sharedMappings.getPlugin()
   ];
+
   return require('../../tools/custom-webpack-config')(config);
 
 };

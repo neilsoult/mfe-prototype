@@ -26,25 +26,17 @@ sharedMappings.register(
   workspaceRootPath
 );
 
-module.exports = {
-  output: {
-    uniqueName: 'shell-pug',
-    publicPath: 'auto',
-  },
-  optimization: {
-    runtimeChunk: false,
-  },
-  experiments: {
-    outputModule: true,
-  },
-  resolve: {
-    alias: {
-      ...sharedMappings.getAliases(),
-    },
-  },
-  plugins: [
+module.exports = (config) => {
+  config.output.uniqueName = 'shell-pug';
+  config.output.publicPath = 'auto';
+  config.optimization.runtimeChunk = false;
+  config.experiments.outputModule = true;
+  config.resolve.alias = { ...sharedMappings.getAliases() };
+  config.plugins = [
+    ...config.plugins,
     new ModuleFederationPlugin({
       remotes: {
+        'app-one-pug': 'http://localhost:4301/remoteEntry.js',
         'app-two-pug': 'http://localhost:4302/remoteEntry.js',
       },
       shared: share({
@@ -85,5 +77,8 @@ module.exports = {
       },
     }),
     sharedMappings.getPlugin(),
-  ],
+  ]
+
+  return require('../../tools/custom-webpack-config')(config);
+
 };
