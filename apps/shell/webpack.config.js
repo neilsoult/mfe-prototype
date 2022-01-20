@@ -47,6 +47,7 @@ module.exports = {
       remotes: {
         'app-one': 'http://localhost:4201/one/remoteEntry.js',
         'app-two': 'http://localhost:4202/two/remoteEntry.js',
+        'app-one-pug': 'http://localhost:4301/remoteEntry.js',
       },
       shared: share({
         '@angular/core': {

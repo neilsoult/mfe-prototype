@@ -1,0 +1,105 @@
+{
+  "projectType": "application",
+  "root": "apps/app-two-pug",
+  "sourceRoot": "apps/app-two-pug/src",
+  "prefix": "mfe-prototype",
+  "targets": {
+    "build": {
+      "executor": "@angular-builders/custom-webpack:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "baseHref": "/two/",
+        "outputPath": "dist/apps/app-two-pug",
+        "index": "apps/app-two-pug/src/index.html",
+        "main": "apps/app-two-pug/src/main.ts",
+        "polyfills": "apps/app-two-pug/src/polyfills.ts",
+        "tsConfig": "apps/app-two-pug/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          "apps/app-two-pug/src/favicon.ico",
+          "apps/app-two-pug/src/assets"
+        ],
+        "styles": ["apps/app-two-pug/src/styles.less"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/app-two-pug/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/app-two-pug/src/environments/environment.ts",
+              "with": "apps/app-two-pug/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/app-two-pug/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-builders/custom-webpack:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "app-two-pug:build:production"
+        },
+        "development": {
+          "browserTarget": "app-two-pug:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4302,
+        "publicHost": "http://localhost:4302"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "app-two-pug:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/app-two-pug/src/**/*.ts",
+          "apps/app-two-pug/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/app-two-pug"],
+      "options": {
+        "jestConfig": "apps/app-two-pug/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

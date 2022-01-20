@@ -98,7 +98,12 @@
     "serve-mfe": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["nx serve app-two", "nx serve app-one", "nx serve shell"]
+        "commands": [
+          "nx serve app-one-pug",
+          "nx serve app-two",
+          "nx serve app-one",
+          "nx serve shell"
+        ]
       }
     }
   },

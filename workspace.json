@@ -3,9 +3,15 @@
   "projects": {
     "app-one": "apps/app-one",
     "app-one-e2e": "apps/app-one-e2e",
+    "app-one-pug": "apps/app-one-pug",
+    "app-one-pug-e2e": "apps/app-one-pug-e2e",
     "app-two": "apps/app-two",
     "app-two-e2e": "apps/app-two-e2e",
+    "app-two-pug": "apps/app-two-pug",
+    "app-two-pug-e2e": "apps/app-two-pug-e2e",
     "shell": "apps/shell",
-    "shell-e2e": "apps/shell-e2e"
+    "shell-e2e": "apps/shell-e2e",
+    "shell-pug": "apps/shell-pug",
+    "shell-pug-e2e": "apps/shell-pug-e2e"
   }
 }
