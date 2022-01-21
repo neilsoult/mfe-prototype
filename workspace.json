@@ -9,6 +9,7 @@
     "app-two-e2e": "apps/app-two-e2e",
     "app-two-pug": "apps/app-two-pug",
     "app-two-pug-e2e": "apps/app-two-pug-e2e",
+    "counter": "libs/counter",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e",
     "shell-pug": "apps/shell-pug",

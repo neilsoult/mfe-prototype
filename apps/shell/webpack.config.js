@@ -22,6 +22,7 @@ sharedMappings.register(
   tsConfigPath,
   [
     /* mapped paths to share */
+    '@mfe-prototype/counter'
   ],
   workspaceRootPath
 );
@@ -47,7 +48,6 @@ module.exports = {
       remotes: {
         'app-one': 'http://localhost:4201/one/remoteEntry.js',
         'app-two': 'http://localhost:4202/two/remoteEntry.js',
-        'app-one-pug': 'http://localhost:4301/remoteEntry.js',
       },
       shared: share({
         '@angular/core': {
@@ -69,6 +69,24 @@ module.exports = {
           includeSecondaries: true,
         },
         '@angular/router': {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: 'auto',
+          includeSecondaries: true,
+        },
+        '@ngrx/effects': {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: 'auto',
+          includeSecondaries: true,
+        },
+        '@ngrx/router-store': {
+          singleton: true,
+          strictVersion: true,
+          requiredVersion: 'auto',
+          includeSecondaries: true,
+        },
+        '@ngrx/store': {
           singleton: true,
           strictVersion: true,
           requiredVersion: 'auto',

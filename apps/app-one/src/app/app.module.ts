@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-/*
- * This RemoteEntryModule is imported here to allow TS to find the Module during
- * compilation, allowing it to be included in the built bundle. This is required
- * for the Module Federation Plugin to expose the Module correctly.
- * */
-// import { RemoteEntryModule } from './remote-entry/entry.module';
-
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +15,19 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule,
     RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers: !environment.production ? [] : [],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

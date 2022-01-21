@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/counter",
+  "sourceRoot": "libs/counter/src",
+  "prefix": "mfe-prototype",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/counter"],
+      "options": {
+        "jestConfig": "libs/counter/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/counter/src/**/*.ts",
+          "libs/counter/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
