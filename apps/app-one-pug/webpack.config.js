@@ -32,55 +32,97 @@ module.exports = (config) => {
   config.output.publicPath = 'auto';
   config.optimization.runtimeChunk = false;
   config.experiments.outputModule = true;
-  config.resolve.alias = { ...sharedMappings.getAliases() };
-  config.plugins = [
-    ...config.plugins,
-    new ModuleFederationPlugin({
-      name: 'app-one-pug',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './Module': './apps/app-one-pug/src/app/core/core.module.ts',
-      },
-      shared: share({
-        '@angular/core': {
-          singleton: true,
-          strictVersion: true,
-          requiredVersion: 'auto',
-          includeSecondaries: true,
+  // config.resolve.alias = { ...sharedMappings.getAliases() };
+  // config.plugins = [
+  //   ...config.plugins,
+  //   new ModuleFederationPlugin({
+  //     name: 'app-one-pug',
+  //     filename: 'remoteEntry.js',
+  //     exposes: {
+  //       './Module': './apps/app-one-pug/src/app/core/core.module.ts',
+  //     },
+  //     shared: share({
+  //       '@angular/core': {
+  //         singleton: true,
+  //         strictVersion: true,
+  //         requiredVersion: 'auto',
+  //         includeSecondaries: true,
+  //       },
+  //       '@angular/common': {
+  //         singleton: true,
+  //         strictVersion: true,
+  //         requiredVersion: 'auto',
+  //         includeSecondaries: true,
+  //       },
+  //       '@angular/common/http': {
+  //         singleton: true,
+  //         strictVersion: true,
+  //         requiredVersion: 'auto',
+  //         includeSecondaries: true,
+  //       },
+  //       '@angular/router': {
+  //         singleton: true,
+  //         strictVersion: true,
+  //         requiredVersion: 'auto',
+  //         includeSecondaries: true,
+  //       },
+  //       rxjs: {
+  //         singleton: true,
+  //         strictVersion: true,
+  //         requiredVersion: 'auto',
+  //         includeSecondaries: true,
+  //       },
+  //       ...sharedMappings.getDescriptors(),
+  //     }),
+  //     library: {
+  //       type: 'module',
+  //     },
+  //   }),
+  //   sharedMappings.getPlugin()
+  // ];
+    // add pug loader into webpack module rules
+    config.module.rules = [
+        {
+            test: /.(pug|jade)$/,
+            exclude: /.(include|partial).(pug|jade)$/,
+            use: [
+                { loader: 'apply-loader' },
+                { loader: 'pug-loader', options: { root: 'libs/pug' } }
+            ]
         },
-        '@angular/common': {
-          singleton: true,
-          strictVersion: true,
-          requiredVersion: 'auto',
-          includeSecondaries: true,
-        },
-        '@angular/common/http': {
-          singleton: true,
-          strictVersion: true,
-          requiredVersion: 'auto',
-          includeSecondaries: true,
-        },
-        '@angular/router': {
-          singleton: true,
-          strictVersion: true,
-          requiredVersion: 'auto',
-          includeSecondaries: true,
-        },
-        rxjs: {
-          singleton: true,
-          strictVersion: true,
-          requiredVersion: 'auto',
-          includeSecondaries: true,
-        },
-        ...sharedMappings.getDescriptors(),
-      }),
-      library: {
-        type: 'module',
-      },
-    }),
-    sharedMappings.getPlugin()
-  ];
+        { test: /.(include|partial).(pug|jade)$/, loader: 'pug-loader' },
+        ...config.module.rules
+    ];
 
-  return require('../../tools/custom-webpack-config')(config);
+    // update AngularCompilerPlugin options to turn off directTemplateLoading so we can use pug templates
+    const angularPlugin = config.plugins.find(({ constructor: { name }}) => name === 'AngularWebpackPlugin');
+    angularPlugin.options.directTemplateLoading = false;
+
+    return config;
+
+  // return require('../../tools/custom-webpack-config')(config);
 
 };
+// module.exports = (config) => {
+
+//   // add pug loader into webpack module rules
+//   config.module.rules = [
+//       {
+//           test: /.(pug|jade)$/,
+//           exclude: /.(include|partial).(pug|jade)$/,
+//           use: [
+//               { loader: 'apply-loader' },
+//               { loader: 'pug-loader', options: { root: 'libs/pug' } }
+//           ]
+//       },
+//       { test: /.(include|partial).(pug|jade)$/, loader: 'pug-loader' },
+//       ...config.module.rules
+//   ];
+
+//   // update AngularCompilerPlugin options to turn off directTemplateLoading so we can use pug templates
+//   const angularPlugin = config.plugins.find(({ constructor: { name }}) => name === 'AngularWebpackPlugin');
+//   angularPlugin.options.directTemplateLoading = false;
+
+//   return config;
+
+// };

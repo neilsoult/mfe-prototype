@@ -23,7 +23,7 @@
         "styles": ["apps/app-one-pug/src/styles.less"],
         "scripts": [],
         "customWebpackConfig": {
-          "path": "apps/app-one-pug/webpack.config"
+          "path": "apps/app-one-pug/webpack.config.js"
         }
       },
       "configurations": {
