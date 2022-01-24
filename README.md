@@ -21,6 +21,8 @@ the sites are available at `http://localhost:4201`, `http://localhost:4202`, and
 This prototype demonstrates that the AppComponent for the two remote/standalone apps displays the same router-outlet content (HomeComponent)
 as the shell app when loading the remotes into it's own AppComponent through routing (made easier with the nav links)
 
+Also, the library `CounterModule` is a ngrx store module with a simple counter. This library is shared among the shell and the
+two remote apps.
 ## Prototype 2
 
 Prototype 2 is basically the same as Prototype 1, only using pug instead of html and `@angular-builders/custom-webpack`.
