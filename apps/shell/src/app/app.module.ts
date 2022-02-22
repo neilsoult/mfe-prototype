@@ -1,3 +1,4 @@
+import { loadRemoteModule } from '@angular-architects/module-federation';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -6,28 +7,31 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(
-      [
-        {
-          path: 'one',
-          loadChildren: () =>
-            import('app-one/Module').then((m) => m.CoreModule),
-        },
-        {
-          path: 'two',
-          loadChildren: () =>
-            import('app-two/Module').then((m) => m.CoreModule),
-        },
-      ],
-      { initialNavigation: 'enabledBlocking' }
-    ),
+    BrowserModule.withServerTransition({ appId: 'serverShell' }),
+    RouterModule.forRoot([
+    {
+        path: 'one',
+        loadChildren: () => loadRemoteModule({
+          remoteEntry: 'http://localhost:4201/one/remoteEntry.js',
+          type: 'module',
+          exposedModule: './Module'
+        }).then(m => m.CoreModule)
+    },
+    {
+        path: 'two',
+        loadChildren: () => loadRemoteModule({
+          remoteEntry: 'http://localhost:4202/two/remoteEntry.js',
+          type: 'module',
+          exposedModule: './Module'
+        }).then(m => m.CoreModule)
+    },
+], { initialNavigation: 'enabledBlocking' }),
     StoreModule.forRoot(
       {},
       {

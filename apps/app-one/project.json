@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "baseHref": "/one/",
-        "outputPath": "dist/apps/app-one",
+        "outputPath": "dist/app-one/browser",
         "index": "apps/app-one/src/index.html",
         "main": "apps/app-one/src/main.ts",
         "polyfills": "apps/app-one/src/polyfills.ts",
@@ -96,6 +96,65 @@
         "jestConfig": "apps/app-one/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/app-one/server",
+        "main": "apps/app-one/server.ts",
+        "tsConfig": "apps/app-one/tsconfig.server.json",
+        "inlineStyleLanguage": "less"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/app-one/src/environments/environment.ts",
+              "with": "apps/app-one/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "app-one:build:development",
+          "serverTarget": "app-one:server:development"
+        },
+        "production": {
+          "browserTarget": "app-one:build:production",
+          "serverTarget": "app-one:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "app-one:build:production",
+          "serverTarget": "app-one:server:production"
+        },
+        "development": {
+          "browserTarget": "app-one:build:development",
+          "serverTarget": "app-one:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []

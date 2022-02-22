@@ -6,17 +6,24 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "baseHref": "/two/",
-        "outputPath": "dist/apps/app-two",
+        "outputPath": "dist/app-two/browser",
         "index": "apps/app-two/src/index.html",
         "main": "apps/app-two/src/main.ts",
         "polyfills": "apps/app-two/src/polyfills.ts",
         "tsConfig": "apps/app-two/tsconfig.app.json",
         "inlineStyleLanguage": "less",
-        "assets": ["apps/app-two/src/favicon.ico", "apps/app-two/src/assets"],
-        "styles": ["apps/app-two/src/styles.less"],
+        "assets": [
+          "apps/app-two/src/favicon.ico",
+          "apps/app-two/src/assets"
+        ],
+        "styles": [
+          "apps/app-two/src/styles.less"
+        ],
         "scripts": [],
         "customWebpackConfig": {
           "path": "apps/app-two/webpack.config.js"
@@ -91,11 +98,72 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/app-two"],
+      "outputs": [
+        "coverage/apps/app-two"
+      ],
       "options": {
         "jestConfig": "apps/app-two/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/app-two/server",
+        "main": "apps/app-two/server.ts",
+        "tsConfig": "apps/app-two/tsconfig.server.json",
+        "inlineStyleLanguage": "less"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/app-two/src/environments/environment.ts",
+              "with": "apps/app-two/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "app-two:build:development",
+          "serverTarget": "app-two:server:development"
+        },
+        "production": {
+          "browserTarget": "app-two:build:production",
+          "serverTarget": "app-two:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "app-two:build:production",
+          "serverTarget": "app-two:server:production"
+        },
+        "development": {
+          "browserTarget": "app-two:build:development",
+          "serverTarget": "app-two:server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   },
   "tags": []
