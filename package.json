@@ -9,7 +9,7 @@
     "postinstall": "ngcc --properties es2015 browser module main",
     "build:ssr:app-one": "nx build app-one && nx run app-one:server && node dist/app-one/server/main.js",
     "build:ssr:app-two": "nx build app-two && nx run app-two:server && node dist/app-two/server/main.js",
-    "build:ssr:shell": "nx build shell && nx run shell:server && node dist/shell/server/main.js"
+    "build:ssr:shell": "nx build shell && nx run shell:server && node --experimental-loader ./tools/experimental-loaders/http-loader.mjs ./dist/shell/server/main.js"
   },
   "private": true,
   "devDependencies": {
