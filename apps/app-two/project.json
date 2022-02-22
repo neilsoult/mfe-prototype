@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "baseHref": "/two/",
-        "outputPath": "dist/apps/app-two",
+        "outputPath": "dist/apps/app-two/browser",
         "index": "apps/app-two/src/index.html",
         "main": "apps/app-two/src/main.ts",
         "polyfills": "apps/app-two/src/polyfills.ts",
@@ -72,6 +72,16 @@
       "options": {
         "port": 4202,
         "publicHost": "http://localhost:4202"
+      }
+    },
+    "server": {
+      "builder": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/app-two/server",
+        "main": "apps/app-two/src/server.ts",
+        "tsConfig": "apps/app-two/tsconfig.server.json",
+        "bundleDependencies": false,
+        "optimization": false
       }
     },
     "extract-i18n": {

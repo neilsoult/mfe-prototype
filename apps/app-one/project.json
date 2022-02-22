@@ -8,8 +8,8 @@
       "executor": "@nrwl/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "baseHref": "/one/",
-        "outputPath": "dist/apps/app-one",
+        "baseHref": "/",
+        "outputPath": "dist/apps/app-one/browser",
         "index": "apps/app-one/src/index.html",
         "main": "apps/app-one/src/main.ts",
         "polyfills": "apps/app-one/src/polyfills.ts",
@@ -72,6 +72,16 @@
       "options": {
         "port": 4201,
         "publicHost": "http://localhost:4201"
+      }
+    },
+    "server": {
+      "builder": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/app-one/server",
+        "main": "apps/app-one/src/server.ts",
+        "tsConfig": "apps/app-one/tsconfig.server.json",
+        "bundleDependencies": false,
+        "optimization": false
       }
     },
     "extract-i18n": {

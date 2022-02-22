@@ -8,7 +8,7 @@
       "executor": "@nrwl/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/shell",
+        "outputPath": "dist/apps/shell/browser",
         "index": "apps/shell/src/index.html",
         "main": "apps/shell/src/main.ts",
         "polyfills": "apps/shell/src/polyfills.ts",
@@ -70,6 +70,16 @@
       "defaultConfiguration": "development",
       "options": {
         "publicHost": "http://localhost:4200"
+      }
+    },
+    "server": {
+      "builder": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/shell/server",
+        "main": "apps/shell/src/server.ts",
+        "tsConfig": "apps/shell/tsconfig.server.json",
+        "bundleDependencies": false,
+        "optimization": false
       }
     },
     "extract-i18n": {
